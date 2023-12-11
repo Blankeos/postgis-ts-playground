@@ -2,9 +2,16 @@
   "name": ".",
   "module": "index.ts",
   "type": "module",
-  "workspaces": ["apps/*"],
+  "workspaces": [
+    "apps/*"
+  ],
   "devDependencies": {
     "bun-types": "latest"
+  },
+  "scripts": {
+    "server:dev": "bun run --cwd apps/server dev",
+    "db:start": "bun run --cwd apps/server db:start",
+    "db:stop": "bun run --cwd apps/server db:stop"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

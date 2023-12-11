@@ -6,19 +6,19 @@ Before proceeding, please install the following software:
 
 - [Docker][docker-download] - For easy database setup.
 - [Beekeeper Studio - Community Edition][beekeeper-download] - For easy database querying and viewing. You can use `psql` if you're a keyboard elitist.
-- [Bun][bun-download]
+- [Bun][bun-download] - Bun is awesome.
 
 ## Setup
 
 ```sh
-# 1. Clone
+# 1️⃣. Clone
 git clone https://github.com/Blankeos/postgis-ts-playground
 cd postgis-ts-playground
 
-# 2. Setup Env
+# 2️⃣. Setup Env
 cp .env.example .env
 
-# 3. Run/Build Postgres in Docker.
+# 3️⃣. Run/Build Postgres in Docker.
 bun db:start
 
 # - 3.a To stop:
@@ -31,10 +31,10 @@ bun db:stop
 # ---> scripts/init.sql (postgis_playground)
 # ---> scripts/docker-compose.yml (`POSTGRES_USER` `POSTGRES_PASSWORD` `ports`)
 
-# 4. Install dependencies
+# 4️⃣. Install dependencies
 bun install
 
-# 5. Run (Server)
+# 5️⃣. Run (Server)
 bun server:dev
 ```
 

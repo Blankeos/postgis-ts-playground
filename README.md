@@ -38,6 +38,13 @@ bun install
 bun server:dev
 ```
 
+## Additional Tips
+
+- Use **Beekeeper Studio** and pasting the connection string into "Host" of
+  **New Connection**. So you know the database is running or if you want to explore.
+- Where is your database's data stored? It's in `apps/server/data`, it's passed
+as a volume into `docker-compose.yml`. You can `sudo rm -rf apps/server/data` to
+delete this.
 <!-- # .
 
 To install dependencies:

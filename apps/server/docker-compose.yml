@@ -1,16 +1,14 @@
 version: "3"
+name: postgis_playground # The main container name
 services:
-  db:
-    container_name: postgres
+  db: # Subcontainer name: <main_container_name>_db_1
     image: postgres:16.1
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password123
+      # Creates a new "Database" of this name only if no initial databases exist.
+      POSTGRES_DB: postgis_playground
     volumes:
       - ./data:/var/lib/postgresql/data
-      # Move the init.sql script for "Creating the DB_NAME"
-      # The Postgres Docker image is configured to run any .sql files in the
-      # /docker-entrypoint-initdb.d directory when the container starts.
-      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"

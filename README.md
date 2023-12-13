@@ -5,45 +5,87 @@
 Before proceeding, please install the following software:
 
 - [Docker][docker-download] - For easy database setup.
-- [Beekeeper Studio - Community Edition][beekeeper-download] - For easy database querying and viewing. You can use `psql` if you're a keyboard elitist.
-- [Bun][bun-download] - Bun is awesome.
+- [Bun][bun-download] - Both a package manager and runtime. I use Elysia here.
+- Optional: [Beekeeper Studio - Community Edition][beekeeper-download] - For easy database querying and viewing. You can just use `psql` if you're a keyboard elitist.
 
-## Setup
+## Setup Server (3 easy steps)
+
+### 1. Create PostGIS Database (Recommended: Use Docker)
+
+The easiest way to get PostGIS up and running is with Docker. If you want a
+different way, go to [additional tips](#💡-additional-tips).
 
 ```sh
-# 1️⃣. Clone
-git clone https://github.com/Blankeos/postgis-ts-playground
-cd postgis-ts-playground
-
-# 2️⃣. Setup Env
-cp .env.example .env
-
-# 3️⃣. Run/Build Postgres in Docker.
+# To start:
 bun db:start
 
-# - 3.a To stop:
+# To stop:
 bun db:stop
+```
 
-# - 3.b Based on configuration, connection string will be this unless you customize:
-# postgresql://postgres:password123@127.0.0.1:5432/postgis_playground
+> Based on my configuration, connection string should be:
+> `postgresql://postgres:password123@127.0.0.1:5432/postgis_playground`
 
-# - 3.c To customize the connection string, goto `apps/server`` and change:
-# ---> scripts/docker-compose.yml (`POSTGRES_USER` `POSTGRES_PASSWORD` `POSTGRES_DB`)
+> To customize: `scripts/docker-compose.yml` (`POSTGRES_USER` `POSTGRES_PASSWORD` `POSTGRES_DB`)
 
-# 4️⃣. Install dependencies
+### 2. Setup Env
+
+Add your connection string to the .env. Defaults should be fine.
+
+```sh
+cp .apps/server/env.example apps/server/.env
+```
+
+### 3. Install dependencies and Run
+
+```sh
 bun install
-
-# 5️⃣. Run (Server)
 bun server:dev
 ```
 
-## Additional Tips
+## 💡 Additional Tips
 
-- Use **Beekeeper Studio** and pasting the connection string into "Host" of
-  **New Connection**. So you know the database is running or if you want to explore.
-- Where is your database's data stored? It's in `apps/server/data`, it's passed
-as a volume into `docker-compose.yml`. You can `sudo rm -rf apps/server/data` to
-delete this.
+### Test my DB Connection?
+
+> Use **Beekeeper Studio** and pasting the connection string into "Host" of
+> **New Connection**. So you know the database is running or if you want to explore.
+
+### Where is the data from my database stored?
+
+> Where is your database's data stored? It's in `apps/server/data`, it's passed
+> as a volume into `docker-compose.yml`. You can `sudo rm -rf apps/server/data`
+> to delete this.
+
+### Other ways to create a PostGIS database
+
+1. Setup from scratch with just Postgres.
+
+Assuming you have no PostGIS installed, just Postgres. Just go here:
+https://postgis.net/documentation/getting_started/
+
+Also make sure to login and create a database
+
+```sh
+# Login
+psql -U postgres
+
+# Create the database
+CREATE DATABASE postgis_playground;
+```
+
+2. A single Docker Container (Postgis) + multiple databases
+
+If you don't want multiple containers running and only want to have 1 container
+and reuse it for multiple databases, do the following:
+
+```sh
+# Login to postgres database via Docker
+docker exec -ti postgis_playground psql -U postgres
+
+# Create the database
+CREATE DATABASE postgis_playground;
+```
+
 <!-- # .
 
 To install dependencies:

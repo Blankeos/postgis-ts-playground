@@ -6,6 +6,7 @@ Before proceeding, please install the following software:
 
 - [Docker][docker-download] - For easy database setup.
 - [Bun][bun-download] - Both a package manager and runtime. I use Elysia here.
+- [Goose][goose-download] - For migrations (a Golang-based migration tool with a compiled executable).
 - Optional: [Beekeeper Studio - Community Edition][beekeeper-download] - For easy database querying and viewing. You can just use `psql` if you're a keyboard elitist.
 
 ## Setup Server (3 easy steps)
@@ -41,6 +42,17 @@ cp .apps/server/env.example apps/server/.env
 ```sh
 bun install
 bun server:dev
+```
+
+## Database Workflows
+
+We use Goose for migrations
+
+```sh
+bun migrate:status # see which migrations are pending or applied.
+bun migrate:create <migration_name> # create a new migration in src/database/migrations
+bun migrate:up # apply migrations to the upwards
+bun migrate:down # apply migrations downwards
 ```
 
 ## 💡 Additional Tips
@@ -104,3 +116,4 @@ This project was created using `bun init` in bun v1.0.14. [Bun](https://bun.sh) 
 [bun-download]: https://bun.sh
 [docker-download]: https://www.docker.com/products/docker-desktop/
 [beekeeper-download]: https://github.com/beekeeper-studio/beekeeper-studio/releases
+[goose-download]: https://pressly.github.io/goose/installation/#linux

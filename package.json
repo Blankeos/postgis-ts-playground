@@ -6,14 +6,22 @@
     "apps/*"
   ],
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "dotenv-cli": "^7.3.0"
   },
   "scripts": {
     "server:dev": "bun run --cwd apps/server dev",
     "db:start": "bun run --cwd apps/server db:start",
-    "db:stop": "bun run --cwd apps/server db:stop"
+    "db:stop": "bun run --cwd apps/server db:stop",
+    "migrate:status": "bun run --cwd apps/server migrate:status",
+    "migrate:create": "bun run --cwd apps/server migrate:create",
+    "migrate:up": "bun run --cwd apps/server migrate:up",
+    "migrate:down": "bun run --cwd apps/server migrate:down"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "postgres": "^3.4.3"
   }
 }

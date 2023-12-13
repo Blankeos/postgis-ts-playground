@@ -2,11 +2,12 @@ version: "3"
 name: postgis_playground # The main container name
 services:
   db: # Subcontainer name: <main_container_name>_db_1
-    image: postgres:16.1
+    image: postgis/postgis
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password123
-      # Creates a new "Database" of this name only if no initial databases exist.
+      # Creates a new "Database" of this name only
+      # if no initial databases exist. It only runs the first time.
       POSTGRES_DB: postgis_playground
     volumes:
       - ./data:/var/lib/postgresql/data

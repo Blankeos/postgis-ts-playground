@@ -28,8 +28,7 @@ bun db:stop
 # postgresql://postgres:password123@127.0.0.1:5432/postgis_playground
 
 # - 3.c To customize the connection string, goto `apps/server`` and change:
-# ---> scripts/init.sql (postgis_playground)
-# ---> scripts/docker-compose.yml (`POSTGRES_USER` `POSTGRES_PASSWORD` `ports`)
+# ---> scripts/docker-compose.yml (`POSTGRES_USER` `POSTGRES_PASSWORD` `POSTGRES_DB`)
 
 # 4️⃣. Install dependencies
 bun install

@@ -52,39 +52,38 @@ bun server:dev
 
 ### Where is the data from my database stored?
 
-> Where is your database's data stored? It's in `apps/server/data`, it's passed
-> as a volume into `docker-compose.yml`. You can `sudo rm -rf apps/server/data`
-> to delete this.
+> It's in `apps/server/data`, it's passed as a volume into `docker-compose.yml`.
+> You can `sudo rm -rf apps/server/data` to delete this.
 
 ### Other ways to create a PostGIS database
 
-1. Setup from scratch with just Postgres.
-
-Assuming you have no PostGIS installed, just Postgres. Just go here:
-https://postgis.net/documentation/getting_started/
-
-Also make sure to login and create a database
-
-```sh
-# Login
-psql -U postgres
-
-# Create the database
-CREATE DATABASE postgis_playground;
-```
-
-2. A single Docker Container (Postgis) + multiple databases
-
-If you don't want multiple containers running and only want to have 1 container
-and reuse it for multiple databases, do the following:
-
-```sh
-# Login to postgres database via Docker
-docker exec -ti postgis_playground psql -U postgres
-
-# Create the database
-CREATE DATABASE postgis_playground;
-```
+> 1. Setup from scratch with just Postgres.
+>
+> Assuming you have no PostGIS installed, just Postgres. Just go here:
+> https://postgis.net/documentation/getting_started/
+>
+> Also make sure to login and create a database
+>
+> ```sh
+> # Login
+> psql -U postgres
+>
+> # Create the database
+> CREATE DATABASE postgis_playground;
+> ```
+>
+> 2. A single Docker Container (Postgis) + multiple databases
+>
+> If you don't want multiple containers running and only want to have 1 container
+> and reuse it for multiple databases, do the following:
+>
+> ```sh
+> # Login to postgres database via Docker
+> docker exec -ti postgis_playground psql -U postgres
+>
+> # Create the database
+> CREATE DATABASE postgis_playground;
+> ```
 
 <!-- # .
 

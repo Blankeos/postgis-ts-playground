@@ -1,3 +1,4 @@
+-- ⚠️ ⚠️ ⚠️ ⚠️ 
 -- THIS DOESN'T WORK!
 -- -- Will run everytime the container starts up.
 -- -- If no <database_name> of datname is found, it will create a new one.

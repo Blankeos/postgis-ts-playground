@@ -1,7 +1,8 @@
 version: "3"
-name: postgis_playground # The main container name
+name: postgis_playground # Project name container name (otherwise it will use the folder name)
 services:
   db: # Subcontainer name: <main_container_name>_db_1
+    container_name: postgis_playground
     image: postgis/postgis
     environment:
       POSTGRES_USER: postgres

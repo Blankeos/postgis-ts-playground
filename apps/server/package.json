@@ -9,7 +9,8 @@
     "migrate:create": "sh scripts/migrate-create.sh src/database/migrations",
     "migrate:status": "dotenv -- goose -dir src/database/migrations postgres $DATABASE_URL status",
     "migrate:up": "dotenv -- goose -dir src/database/migrations postgres $DATABASE_URL up",
-    "migrate:down": "dotenv -- goose -dir src/database/migrations postgres $DATABASE_URL down"
+    "migrate:down": "dotenv -- goose -dir src/database/migrations postgres $DATABASE_URL down",
+    "seed": "bun run scripts/seed.ts"
   },
   "dependencies": {
     "elysia": "latest"

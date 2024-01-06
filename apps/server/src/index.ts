@@ -41,10 +41,30 @@ app.get("/andrea", () => "Hello Andreaasdasd", {
 app.get(
   "/v1/restaurants",
   async ({ query, ...c }) => {
+    // VALIDATION
+
+    // If either radius, x, and y were passed.
+    let where = sql``;
+
+    if (query.radius || query.x !== undefined || query.y !== undefined) {
+      // Check if at least 1 was not passed.
+      if (!query.radius || query.x === undefined || query.y === undefined) {
+        throw Error(
+          "Missing either 'radius', 'x', or 'y'. They must all be passed together."
+        );
+      }
+
+      where = sql`WHERE ST_DWithin(location, st_point(${query.x}, ${query.y}), ${query.radius})`;
+      // OR
+      // where = sql`WHERE ST_Intersects(ST_Buffer(geom, 100.0), 'POINT(1000 1000)')`
+    }
+
     const sqlResponse = await sql`
-      SELECT id, name, st_asgeojson(location) as location FROM restaurants ${
-        query.limit ? sql`limit = ${query.limit}` : sql``
-      };
+      SELECT 
+        id, name, st_asgeojson(location) as location 
+      FROM restaurants
+      ${where}
+      ${query.limit ? sql`LIMIT ${query.limit}` : sql`LIMIT 20`};
   `;
 
     const restaurants = sqlResponse.map((restaurant) => ({
@@ -71,13 +91,13 @@ app.get(
         })
       ),
       radius: t.Optional(
-        t.Number({
+        t.Numeric({
           description:
-            "The radius (in meters?) from the x and y where restaurants should be found. `x` and `y` must be specified for this. `Default: 20`",
+            "The radius (in meters?) from the x and y where restaurants should be found. `x` and `y` must be specified for this. `Default: 20000`",
         })
       ),
       limit: t.Optional(
-        t.Number({
+        t.Numeric({
           description: "The number of restaurants returned. `Default: 20`",
         })
       ),

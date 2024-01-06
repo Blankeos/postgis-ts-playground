@@ -97,6 +97,9 @@ bun migrate:down # apply migrations downwards
 > CREATE DATABASE postgis_playground;
 > ```
 
+### Troubleshooting
+
+- ❎ DO NOT use `'POINT(0 0)'`. ✅ Always use `st_point(0, 0)` instead when doing queries inside `` sql`INSERT INTO` ``
 <!-- # .
 
 To install dependencies:

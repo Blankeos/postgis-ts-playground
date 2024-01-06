@@ -42,9 +42,9 @@ app.get(
   "/v1/restaurants",
   async ({ query, ...c }) => {
     const sqlResponse = await sql`
-    SELECT id, name, st_asgeojson(location) as location FROM restaurants ${
-      query.limit ? sql`limit = ${query.limit}` : sql``
-    };
+      SELECT id, name, st_asgeojson(location) as location FROM restaurants ${
+        query.limit ? sql`limit = ${query.limit}` : sql``
+      };
   `;
 
     const restaurants = sqlResponse.map((restaurant) => ({
@@ -88,13 +88,13 @@ app.get(
 app.post(
   "/v1/restaurants",
   async ({ body, ...c }) => {
-    console.log("posting", body.x, body.y, typeof body.x, typeof body.y);
-
     const sqlResponse = await sql`
-    INSERT INTO restaurants (name, location) VALUES (${body.name}, st_point(${body.x}, ${body.y})) RETURNING id, name, st_asgeojson(location) as location;
+      INSERT INTO restaurants (name, location) 
+      VALUES 
+      (${body.name}, st_point(${body.x}, ${body.y})) 
+      RETURNING id, name, st_asgeojson(location) as location;
     `;
 
-    console.log(sqlResponse);
     const restaurants = sqlResponse.map((restaurant) => ({
       ...restaurant,
       location: JSON.parse(restaurant.location),
@@ -108,12 +108,43 @@ app.post(
         "Creates a new restaurant on the database with a name and location.",
     },
     body: t.Object({
-      name: t.String(),
+      name: t.String({
+        description: "Name of this new restaurant to be added.",
+      }),
       x: t.Number({
         description: "The longitude (x) where the restaurant is located.",
       }),
       y: t.Number({
         description: "The latitude (y) where the restaurant is located.",
+      }),
+    }),
+  }
+);
+
+app.delete(
+  "/v1/restaurants",
+  async ({ body, ...c }) => {
+    const sqlResponse = await sql`
+      DELETE FROM restaurants
+      WHERE id = ${body.id}
+      RETURNING id, name, st_asgeojson(location) as location;
+    `;
+
+    const restaurants = sqlResponse.map((restaurant) => ({
+      ...restaurant,
+      location: JSON.parse(restaurant.location),
+    }));
+
+    return restaurants;
+  },
+  {
+    detail: {
+      description:
+        "Deletes a restaurant on the database based on the name and location",
+    },
+    body: t.Object({
+      id: t.Integer({
+        description: "ID of the restaurant to be deleted.",
       }),
     }),
   }

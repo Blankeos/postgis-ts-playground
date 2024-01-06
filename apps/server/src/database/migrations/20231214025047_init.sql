@@ -12,3 +12,6 @@ create table if not exists public.restaurants (
 -- +goose StatementBegin
 drop table public.restaurants;
 -- +goose StatementEnd
+
+
+-- https://stackoverflow.com/questions/55300370/postgresql-serial-vs-identity/55300741#55300741

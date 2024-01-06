@@ -121,6 +121,81 @@ app.post(
   }
 );
 
+app.patch(
+  "/v1/restaurants",
+  async ({ body, ...c }) => {
+    if (!body.name && body.x === undefined && body.y === undefined)
+      throw Error(
+        "When using this endpoint, pass at least 1 property to update."
+      );
+
+    // Validation
+    const atleast1CoordinateIsPassed =
+      body.x !== undefined || body.y !== undefined;
+
+    const bothCoordinatesArePassed =
+      body.x !== undefined && body.y !== undefined;
+
+    if (atleast1CoordinateIsPassed && !bothCoordinatesArePassed)
+      throw Error(
+        "If you pass either x or y, you must pass both of them to update the location."
+      );
+
+    // Query Building
+    const setter: Dict<any> = {};
+
+    if (body.name) {
+      setter.name = body.name;
+    }
+    if (bothCoordinatesArePassed) {
+      setter.location = sql`st_point(${body.x!}, ${body.y!})`;
+      // OR
+      // setter.location = 'POINT(${body.x} ${body.y})
+    }
+
+    const sqlResponse = await sql`
+        UPDATE restaurants
+        SET 
+          ${sql(setter)}
+        WHERE id = ${body.id}
+        RETURNING id, name, st_asgeojson(location) as location; 
+      `;
+
+    const restaurants = sqlResponse.map((restaurant) => ({
+      ...restaurant,
+      location: JSON.parse(restaurant.location),
+    }));
+
+    return restaurants;
+  },
+  {
+    detail: {
+      description:
+        "Updates a restaurant on the database based on the id and the details passed. In a 'patch' manner (Only the data provided in the body will be updated, others will be untouched).",
+    },
+    body: t.Object({
+      id: t.Integer({
+        description: "ID of the restaurant to be edited.",
+      }),
+      name: t.Optional(
+        t.String({
+          description: "Updated name for the restaurant.",
+        })
+      ),
+      x: t.Optional(
+        t.Numeric({
+          description: "Updated longitude (x) of the restaurant.",
+        })
+      ),
+      y: t.Optional(
+        t.Numeric({
+          description: "Updated latitude (y) of the restaurant.",
+        })
+      ),
+    }),
+  }
+);
+
 app.delete(
   "/v1/restaurants",
   async ({ body, ...c }) => {

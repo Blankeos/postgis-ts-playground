@@ -99,8 +99,16 @@ bun migrate:down # apply migrations downwards
 
 ### Troubleshooting
 
-- ❎ DO NOT use `'POINT(0 0)'`. ✅ Always use `st_point(0, 0)` instead when doing queries inside `` sql`INSERT INTO` ``
-<!-- # .
+- **When to use `'POINT(0 0)'` over `st_point(0, 0)`?**
+
+  - When inside `` sql`...`  ``, use `st_point(0, 0)` (SQL Functions)
+  - Otherwise in a regular string or when using `sql()`, `'POINT(0 0)'` use (Refer to my `.patch("v1/restaurants")` endpoint for this).
+
+- **Why is my query working in PSQL but not in PostgresJS?**
+
+  A very likely culprit is using `'POINT(0 0)'` a string value for Geometry types. Look at the first bullet point.
+
+  <!-- # .
 
 To install dependencies:
 

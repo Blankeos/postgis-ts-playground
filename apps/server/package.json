@@ -13,9 +13,11 @@
     "seed": "bun run scripts/seed.ts"
   },
   "dependencies": {
+    "@elysiajs/swagger": "^0.8.0",
     "elysia": "latest"
   },
   "devDependencies": {
+    "@types/geojson": "^7946.0.13",
     "bun-types": "latest"
   },
   "module": "src/index.js"

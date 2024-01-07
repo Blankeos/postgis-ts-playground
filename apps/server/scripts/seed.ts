@@ -1,7 +1,3 @@
-/**
- * 💀 THIS FILE IS UNUSED. KEPT IT FOR FUTURE REFERENCE.
- */
-import fs from "fs";
 import path from "path";
 import postgres from "postgres";
 

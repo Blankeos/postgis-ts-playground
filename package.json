@@ -3,13 +3,15 @@
   "module": "index.ts",
   "type": "module",
   "workspaces": [
-    "apps/*"
+    "apps/server",
+    "apps/client"
   ],
   "devDependencies": {
     "bun-types": "latest",
     "dotenv-cli": "^7.3.0"
   },
   "scripts": {
+    "server:ddd": "bun run --cwd apps/server ddd",
     "server:dev": "bun run --cwd apps/server dev",
     "db:start": "bun run --cwd apps/server db:start",
     "db:stop": "bun run --cwd apps/server db:stop",

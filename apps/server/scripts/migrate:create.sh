@@ -5,6 +5,10 @@
 # After some iterations, dotenv here isn't actually necessary anymore.
 # I initially used the dotenv-cli so that I can get the database URL from .env
 # Which is the `""` in the command below.
+# ---
+# This is the first "migrate:" script so I'll document my findings here:
+# I found that dotenv-cli actually likes it if it's "wrapped in .sh files" or 
+# if the main command is "subscript encapsulated". 
 
 # Arg$1: The migrations dir.
 if [ -z "$1" ]; then

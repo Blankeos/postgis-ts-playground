@@ -6,10 +6,10 @@
     "dev": "bun run --watch src/index.ts",
     "db:start": "docker-compose up -d --build",
     "db:stop": "docker-compose stop",
-    "migrate:create": "sh scripts/migrate-create.sh src/database/migrations",
-    "migrate:status": "dotenv -- goose -dir src/database/migrations postgres $DATABASE_URL status",
-    "migrate:up": "dotenv -- goose -dir src/database/migrations postgres $DATABASE_URL up",
-    "migrate:down": "dotenv -- goose -dir src/database/migrations postgres $DATABASE_URL down",
+    "migrate:create": "sh scripts/migrate:create.sh src/database/migrations",
+    "migrate:status": "sh scripts/migrate:status.sh src/database/migrations",
+    "migrate:up": "sh scripts/migrate:up.sh src/database/migrations",
+    "migrate:down": "sh scripts/migrate:down.sh src/database/migrations",
     "seed": "bun run scripts/seed.ts"
   },
   "dependencies": {

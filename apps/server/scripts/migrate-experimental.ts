@@ -1,5 +1,6 @@
 /**
- * ⚠️ ⚠️ ⚠️ ⚠️
+ * 💀 THIS FILE IS UNUSED. KEPT IT FOR FUTURE REFERENCE.
+ *
  * This is very WIP. I tried building my own Goose in Bun.
  * Instead, I just decided to install Go and Goose. It works great, even
  * outside of Go projects.

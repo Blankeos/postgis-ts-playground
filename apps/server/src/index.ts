@@ -46,15 +46,17 @@ app.get(
     // If either radius, x, and y were passed.
     let where = sql``;
 
-    if (query.radius || query.x !== undefined || query.y !== undefined) {
+    if (query.x !== undefined || query.y !== undefined) {
       // Check if at least 1 was not passed.
-      if (!query.radius || query.x === undefined || query.y === undefined) {
+      if (query.x === undefined || query.y === undefined) {
         throw Error(
-          "Missing either 'radius', 'x', or 'y'. They must all be passed together."
+          "Missing either 'x', or 'y'. They must both be passed together."
         );
       }
 
-      where = sql`WHERE ST_DWithin(location, st_point(${query.x}, ${query.y}), ${query.radius})`;
+      where = sql`WHERE ST_DWithin(location, st_point(${query.x}, ${
+        query.y
+      }), ${query.radius ?? 20000})`;
       // OR
       // where = sql`WHERE ST_Intersects(ST_Buffer(geom, 100.0), 'POINT(1000 1000)')`
     }

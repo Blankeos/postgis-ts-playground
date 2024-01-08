@@ -8,10 +8,11 @@
   ],
   "devDependencies": {
     "bun-types": "latest",
-    "dotenv-cli": "^7.3.0"
+    "dotenv-cli": "^7.3.0",
+    "prettier": "latest"
   },
   "scripts": {
-    "server:ddd": "bun run --cwd apps/server ddd",
+    "client:dev": "bun run --cwd apps/client dev",
     "server:dev": "bun run --cwd apps/server dev",
     "db:start": "bun run --cwd apps/server db:start",
     "db:stop": "bun run --cwd apps/server db:stop",
@@ -24,6 +25,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@elysiajs/swagger": "^0.8.0",
     "postgres": "^3.4.3"
   }
 }

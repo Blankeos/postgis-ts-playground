@@ -1,12 +1,14 @@
 import { Elysia, t } from "elysia";
 import sql from "@/database/db";
 import { swagger } from "@elysiajs/swagger";
+import cors from "@elysiajs/cors";
 
 /** REST Server */
 const app = new Elysia().get("/", () => "Hello Elysia");
 
 app.use(
   swagger({
+    path: "/docs",
     documentation: {
       info: {
         version: "0.0.1",

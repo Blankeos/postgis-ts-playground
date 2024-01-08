@@ -13,7 +13,8 @@
     "seed": "bun run scripts/seed.ts"
   },
   "dependencies": {
-    "@elysiajs/swagger": "^0.8.0",
+    "@elysiajs/cors": "^0.8.0",
+    "@elysiajs/swagger": "^0.8.3",
     "elysia": "latest"
   },
   "devDependencies": {

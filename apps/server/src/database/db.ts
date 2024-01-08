@@ -7,4 +7,13 @@ const connectionString =
 
 const sql = postgres(connectionString);
 
+try {
+  await sql`SELECT 1`;
+  console.log(
+    "\x1b[32m[Postgres] Successfully connected to the database.\x1b[0m"
+  );
+} catch (error) {
+  console.log("\x1b[31m[Postgres] Failed to connect to the database.");
+}
+
 export default sql;

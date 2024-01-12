@@ -14,6 +14,8 @@ try {
   );
 } catch (error) {
   console.log("\x1b[31m[Postgres] Failed to connect to the database.");
+  process.exit(1);
 }
+
 
 export default sql;

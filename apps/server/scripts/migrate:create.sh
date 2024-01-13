@@ -18,7 +18,7 @@ fi
 
 # Arg$2: The migration name.
 if [ -z "$2" ]; then
- echo "No migration name found. Please add a name."
+ echo "No migration name found. Please add a name. e.g. migrate:create auth_schema"
  exit 1
 fi
 
